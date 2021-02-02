@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+    
+    $(document).ready(function(){
+
+      // jquery 
+      $('#my-message-1').keypress(function(e){
+        if(e.keyCode==13)
+        $('#send-btn-1').click();
+      });
+
+      $('#my-message-2').keypress(function(e){
+        if(e.keyCode==13)
+        $('#send-btn-2').click();
+      });
+
+      // socketio
+      var socket = io();
+      socket.on('disconnect', function() {
+        socket.emit('disconnected', socket.id);
+      });
+      socket.on('connect', function() {
+        socket.emit('connected', socket.id);
+      });
+      
+      $('#send-btn-2').on('click', ()=>{
+        socket.emit('client-send-multiple-messages', $('#my-message-2').val())
+        $('#my-message-2').val('')
+      });
+
+      socket.on('server-send-multiple-messages', (msg) => {
+        var today = new Date();
+        // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+        var h = today.getHours()
+        var m = today.getMinutes()
+        var s = today.getSeconds()
+        if (h < 10) h = '0' + h
+        if (m < 10) m = '0' + m
+        if (s < 10) s = '0' + s
+        var time = h + ":" + m + ":" + s;
+        var dateTime = time;
+        $('#multi-messages').append('<div class="row"><p class="box3">' + msg + '<div class="dateTime">' + dateTime + '</div>' + '</p>' +'</div>')
+        $("#multi-messages").scrollTop($("#multi-messages").height());
+        console.log(msg)
+      }); 
+      
+      $('#send-btn-1').on('click', ()=>{
+        var today = new Date();
+        // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+        var h = today.getHours()
+        var m = today.getMinutes()
+        var s = today.getSeconds()
+        if (h < 10) h = '0' + h
+        if (m < 10) m = '0' + m
+        if (s < 10) s = '0' + s
+        var time = h + ":" + m + ":" + s;
+        var dateTime = time;
+        socket.emit('client-send-single-messages', $('#my-message-1').val())
+        var msg = $('#my-message-1').val()
+        $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1"></p></div><div class="col-sm-6"><p class="float-end box2">' + msg + '</p></div></div>')
+        $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1"></p></div><div class="col-sm-6"><p class="float-end dateTime">' + dateTime + '</p></div></div>')
+        $('#my-message-1').val('')
+      });
+      
+      socket.on('server-send-single-messages', (msg) => {
+        var today = new Date();
+        // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+        var h = today.getHours()
+        var m = today.getMinutes()
+        var s = today.getSeconds()
+        if (h < 10) h = '0' + h
+        if (m < 10) m = '0' + m
+        if (s < 10) s = '0' + s
+        var time = h + ":" + m + ":" + s;
+        var dateTime = time;
+        // console.log("flag: " + flag_image)
+        $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1">' + msg['server_msg'] + '</p></div><div class="col-sm-6"><p class="float-end box2"></div></div>')
+        $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1 dateTime">' + dateTime + '</p></div><div class="col-sm-6"><p class="float-end box2"></div></div>')
+        $('#single-messages').append('<img src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MEVBMTczNDg3QzA5MTFFNjk3ODM5NjQyRjE2RjA3QTkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MEVBMTczNDk3QzA5MTFFNjk3ODM5NjQyRjE2RjA3QTkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowRUExNzM0NjdDMDkxMUU2OTc4Mzk2NDJGMTZGMDdBOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowRUExNzM0NzdDMDkxMUU2OTc4Mzk2NDJGMTZGMDdBOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjjUmssAAAGASURBVHjatJaxTsMwEIbpIzDA6FaMMPYJkDKzVYU+QFeEGPIKfYU8AETkCYI6wANkZQwIKRNDB1hA0Jrf0rk6WXZ8BvWkb4kv99vn89kDrfVexBSYgVNwDA7AN+jAK3gEd+AlGMGIBFDgFvzouK3JV/lihQTOwLtOtw9wIRG5pJn91Tbgqk9kSk7GViADrTD4HCyZ0NQnomi51sb0fUyCMQEbp2WpU67IjfNjwcYyoUDhjJVcZBjYBy40j4wXgaobWoe8Z6Y80CJBwFpunepIzt2AUgFjtXXshNXjVmMh+K+zzp/CMs0CqeuzrxSRpbOKfdCkiMTS1VBQ41uxMyQR2qbrXiiwYN3ACh1FDmsdK2Eu4J6Tlo31dYVtCY88h5ELZIJJ+IRMzBHfyJINrigNkt5VsRiub9nXICdsYyVd2NcVvA3ScE5t2rb5JuEeyZnAhmLt9NK63vX1O5Pe8XaPSuGq1uTrfUgMEp9EJ+CQvr+BJ/AAKvAcCiAR+bf9CjAAluzmdX4AEIIAAAAASUVORK5CYII=">') 
+        $("#single-messages").scrollTop($("#single-messages").height());
+        console.log(msg['client_msg'] + " " + msg['server_msg'])
+      });
+    });
+   
+  </script>
+
+     <div class="container min-100">
+        <div class="row">
+            <div class="col">
+              <h1> <div class="box-title"> CHATTING WITH BOT </div></h1>   
+              
+              <div id="single-messages" class="box-single-chat">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="float-start box1">
+                      xin chào, đây là hệ thống chat bot LOL.
+                    </p>
+                  </div>  
+                  <div class="col-sm-6"><p class="float-end box2"></div> 
+                </div>   
+                        
+                <div class="row">
+                    <div class="col-sm-6"><p class="float-start box1">Ckúnq tae kủa hịn tẹi, 😔💔</p></div>  
+                    <div class="col-sm-6"><p class="float-end "></div> 
+                </div>   
+              
+              </div> <!--div end box-single-chat -->
+
+              <div class="send-msg">    
+                <div class="my-box" style="margin-right: -20px; padding-left: 10px;">              
+                  <input id="my-message-1" style="padding-right: 10px;" type="text" placeholder="Join the conversation" name="single_message" required>
+                  <button id="send-btn-1" class="btn btn-success" type="button" >Send</button>
+                </div>
+                      
+            </div>
+             
+            </div> <!--div end col-->
+
+            <div class="col">
+              <h1> <div class="box-title"> MULTIPLE CHATTING </div></h1>   
+              
+              <div id = "multi-messages" class="box-single-chat">
+                <div class="row">
+                  <p class="box3">Cả nhà thấy hay nhớ like , share và subscribe giúp ProPTIT sớm đạt được nút vàng nhé</p>
+                </div>   
+              </div>
+
+              <div class="send-msg">    
+                  <div class="my-box" style="margin-right: -20px; padding-left: 10px;">              
+                    <input id="my-message-2" style="padding-right: 10px;" type="text" placeholder="Join the conversation" name="multiple_message" required>
+                    <button id="send-btn-2" class="btn btn-success" type="button" >Send</button>
+                  </div>
+                        
+              </div>
+              
+            </div>
+        </div>
+        <div class="space"></br>
+        
+        <footer style="padding-left: 90%;">
+          <p>Author: hoaf13</p>
+          <p><a href="https://www.facebook.com/hoaf13.6/">My Contact</a></p>
+        </footer>
+     </div>
+
+     
+  </body>
+</html>

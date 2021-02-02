@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+    
+    $(document).ready(function(){
+      var socket = io();
+      socket.on('connect', function() {
+        socket.emit('connected', socket.id);
+      });
+      
+      $('#send-btn-2').on('click', ()=>{
+        socket.emit('client-send-multiple-messages', $('#my-message-2').val())
+        $('#my-message-2').val('')
+      });
+
+      socket.on('server-send-multiple-messages', (msg) => {
+        $('#multi-messages').append('<li>' + msg + '</li>')
+        console.log(msg)
+      }); 
+      
+      $('#send-btn-1').on('click', ()=>{
+        socket.emit('client-send-single-messages', $('#my-message-1').val())
+        $('#my-message-1').val('')
+      });
+    
+
+    });
+
+
+    
+  </script>
+
+     <div class="container min-100">
+        <div class="row">
+            <div class="col">
+              <h1> <div class="box-title"> CHATTING WITH BOT </div></h1>   
+              
+              <div id="single-messages" class="box-single-chat">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="float-start box1">
+                      Từng phút từng giây yêu thương lìa xa
+                      Giọt nước mắt anh sao đớn đau lòng quá
+                      Tạm biệt hạnh phúc trao nhau hồi nào
+                      Tạm biệt chàng trai em đã từng yêu
+                      Em đã từng rất yêu
+                    </p>
+                  </div>  
+                  <div class="col-sm-6"><p class="float-end box2"></div> 
+                </div>   
+                
+                <div class="row">
+                    <div class="col-sm-6"><p class="float-start box1"></p></div>  
+                    <div class="col-sm-6">
+                      <p class="float-end box2">Cả nhà thấy hay nhớ like ,
+                      share và subscribe giúp Láo sớm đạt được nút vàng nhé ^^Cả nhà thấy hay nhớ like , C
+                      ả nhà thấy hay nhớ like , share và subscribe giúp Láo sớm đạt được nút vàng nhé ^^C
+                      ả nhà thấy hay nhớ like ,share và subscribe giúp Láo sớm đạt được nút vàng nhé ^^
+                      </p>
+                      </div> 
+                </div> 
+              
+                <div class="row">
+                    <div class="col-sm-6"><p class="float-start box1">Cả nhà thấy hay nhớ like , share và subscribe giúp Láo sớm đạt được nút vàng nhé ^^Cả nhà thấy hay nhớ like , share và subscribe giúp Láo sớm đạt được nút vàng nhé ^^</p></div>  
+                    <div class="col-sm-6"><p class="float-end "></div> 
+                </div>   
+              
+              </div> <!--div end box-single-chat -->
+
+              <div class="send-msg">    
+                <div class="my-box" style="margin-right: -20px; padding-left: 10px;">              
+                  <input id="my-message-1" style="padding-right: 10px;" type="text" placeholder="Join the conversation" name="single_message" required>
+                  <button id="send-btn-1" class="btn btn-success" type="button" >Send</button>
+                </div>
+                      
+            </div>
+             
+            </div> <!--div end col-->
+
+            <div class="col">
+              <h1> <div class="box-title"> MULTIPLE CHATTING </div></h1>   
+              
+              <div id = "multi-messages" class="box-single-chat">
+                <div class="row">
+                  <p class="box3">Cả nhà thấy hay nhớ like , share và subscribe giúp ProPTIT sớm đạt được nút vàng nhé</p>
+                </div>   
+              </div>
+
+              <div class="send-msg">    
+                  <div class="my-box" style="margin-right: -20px; padding-left: 10px;">              
+                    <input id="my-message-2" style="padding-right: 10px;" type="text" placeholder="Join the conversation" name="multiple_message" required>
+                    <button id="send-btn-2" class="btn btn-success" type="button" >Send</button>
+                  </div>
+                        
+              </div>
+              
+            </div>
+        </div>
+        <div class="space"></br>
+        
+        <footer style="padding-left: 90%;">
+          <p>Author: hoaf13</p>
+          <p><a href="https://www.facebook.com/hoaf13.6/">My Contact</a></p>
+        </footer>
+     </div>
+
+     
+  </body>
+</html>

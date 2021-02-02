@@ -1,0 +1,3 @@
+import redis 
+
+red = redis
