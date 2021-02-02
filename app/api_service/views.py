@@ -99,7 +99,6 @@ class ConversationView(MethodView):
         print("entities: {}".format(entities))
         print("prob: {}".format(prob))
         dict_response = getDictPostResponse(conversation_id, message_question, entities, prob, intent)
-        
         conversation = Conversation(conversation_id=conversation_id, 
         message_question=str(message_question), 
         message_answer=str(dict_response['message_answer']),

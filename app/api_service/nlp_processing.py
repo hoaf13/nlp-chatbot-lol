@@ -87,6 +87,8 @@ def get_entity(content):
         hero = 'Jarvan IV'
     if 'mundo' in content.lower():
         hero = 'Dr. Mundo'
+    if 'nunu' in content.lower():
+        hero = 'Nunu & Willump'
 
     return hero, skill.upper()
 
@@ -300,6 +302,7 @@ def tolower_message(message_question):
     return ans 
 
 def getDictPostResponse(conversation_id, message_question, entities, prob, intent):
+    print(entities, intent, prob)
     try:
         if "chào" in message_question.lower() or "hello" in message_question.lower() or "chao" in message_question.lower():
             intent = "say_hi"
@@ -307,16 +310,16 @@ def getDictPostResponse(conversation_id, message_question, entities, prob, inten
             message_answer = "chào bạn, đây là chatbot lol."
             res = to_json(intent, action, message_answer)
             return res
+
         if prob > 0.80:
             if ('champion' in entities and intent != 'how_to_use_skill') or ('champion' in entities and 'skill' in entities and intent == 'how_to_use_skill'):
                 champion = Champion.query.filter_by(name=entities['champion']).first()
                 message_answer = get_raw_answer(intent, champion)
+                print("message_answer: {}".format(message_answer))
                 message_answer,action = normalize_message(intent,message_answer,entities,champion,conversation_id)
                 conversation = Conversation(conversation_id=conversation_id,message_question=message_question,
                                 message_answer=message_answer,intent=intent,entities=entities, action="action_"+intent)
                 res = to_json(intent, action, message_answer)
-                # res['probability'] = str(prob)          
-                #return intent, action, message
                 return res 
         if  "còn" in message_question.lower() or "thì sao" in message_question.lower():
             intent = 'what_about'    
@@ -330,8 +333,6 @@ def getDictPostResponse(conversation_id, message_question, entities, prob, inten
                     conversation = Conversation(conversation_id=conversation_id,message_question=message_question,
                                     message_answer=message_answer,intent=conversation_what_about.intent,entities=entities, action=action)
                     res = to_json(intent, action, message_answer)
-                    # res['probability'] = str(prob)          
-                    #return intent, action, message
                     return res
 
                 if 'champion' not in entities:
@@ -494,16 +495,16 @@ def getDictPostResponse(conversation_id, message_question, entities, prob, inten
                                     message_answer=message_answer,intent=intent,entities=entities, action="action_"+intent)
                     res = to_json(intent, action, message_answer)
                     # res['probability'] = str(prob)
-                    db.session.add(conversation)
-                    db.session.commit()
+                    # db.session.add(conversation)
+                    # db.session.commit()
                     return res
                 else:
                     action = 'action_ask_hero_and_skill'
                     message_answer = 'Không xác định được tướng và kĩ năng, mời bạn nhập thêm.'
                     conversation = Conversation(conversation_id=conversation_id,message_question=message_question,
                                 message_answer=message_answer,intent=intent,entities=entities, action=action)
-                    db.session.add(conversation)
-                    db.session.commit()
+                    # db.session.add(conversation)
+                    # db.session.commit()
                     res = to_json(intent, action, message_answer)
                     # res['probability'] = str(prob)  
                     return res
@@ -515,8 +516,8 @@ def getDictPostResponse(conversation_id, message_question, entities, prob, inten
                     message_answer,action = normalize_message(intent,message_answer,entities,champion,conversation_id)
                     conversation = Conversation(conversation_id=conversation_id,message_question=message_question,
                                     message_answer=message_answer,intent=intent,entities=entities, action="action_"+intent)
-                    db.session.add(conversation)
-                    db.session.commit()
+                    # db.session.add(conversation)
+                    # db.session.commit()
                     res = to_json(intent, action, message_answer)
                     # res['probability'] = str(prob)          
                     #return intent, action, message
@@ -528,9 +529,9 @@ def getDictPostResponse(conversation_id, message_question, entities, prob, inten
                     res = to_json(intent,action, message_answer)
                     return res
 
-    except Exception:
-        intent = "ask_intent"
-        message_answer = 'Tôi không hiểu ý của bạn, mời bạn nhập thêm. '
-        action = "action_ask_intent"
+    except Exception as e :
+        # intent = "ask_intent"
+        message_answer = 'Bộ dữ liệu của tôi vẫn đang cập nhật thêm về câu hỏi này.'
+        action = "action_ask_update"
         res = to_json(intent,action, message_answer)
         return res

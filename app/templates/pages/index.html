@@ -10,157 +10,75 @@
     <link rel="stylesheet" type='text/css' href="{{ url_for('static', filename='css/style.css') }}">
   </head>
   <body>
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf-8">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/myjs.js') }}"></script>
     
-    $(document).ready(function(){
-
-      // jquery 
-      $('#my-message-1').keypress(function(e){
-        if(e.keyCode==13)
-        $('#send-btn-1').click();
-      });
-
-      $('#my-message-2').keypress(function(e){
-        if(e.keyCode==13)
-        $('#send-btn-2').click();
-      });
-
-      // socketio
-      var socket = io();
-      socket.on('disconnect', function() {
-        socket.emit('disconnected', socket.id);
-      });
-      socket.on('connect', function() {
-        socket.emit('connected', socket.id);
-      });
-      
-      $('#send-btn-2').on('click', ()=>{
-        socket.emit('client-send-multiple-messages', $('#my-message-2').val())
-        $('#my-message-2').val('')
-      });
-
-      socket.on('server-send-multiple-messages', (msg) => {
-        var today = new Date();
-        // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-        var h = today.getHours()
-        var m = today.getMinutes()
-        var s = today.getSeconds()
-        if (h < 10) h = '0' + h
-        if (m < 10) m = '0' + m
-        if (s < 10) s = '0' + s
-        var time = h + ":" + m + ":" + s;
-        var dateTime = time;
-        $('#multi-messages').append('<div class="row"><p class="box3">' + msg + '<div class="dateTime">' + dateTime + '</div>' + '</p>' +'</div>')
-        $("#multi-messages").scrollTop($("#multi-messages").height());
-        console.log(msg)
-      }); 
-      
-      $('#send-btn-1').on('click', ()=>{
-        var today = new Date();
-        // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-        var h = today.getHours()
-        var m = today.getMinutes()
-        var s = today.getSeconds()
-        if (h < 10) h = '0' + h
-        if (m < 10) m = '0' + m
-        if (s < 10) s = '0' + s
-        var time = h + ":" + m + ":" + s;
-        var dateTime = time;
-        socket.emit('client-send-single-messages', $('#my-message-1').val())
-        var msg = $('#my-message-1').val()
-        $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1"></p></div><div class="col-sm-6"><p class="float-end box2">' + msg + '</p></div></div>')
-        $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1"></p></div><div class="col-sm-6"><p class="float-end dateTime">' + dateTime + '</p></div></div>')
-        $('#my-message-1').val('')
-      });
-      
-      socket.on('server-send-single-messages', (msg) => {
-        var today = new Date();
-        // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-        var h = today.getHours()
-        var m = today.getMinutes()
-        var s = today.getSeconds()
-        if (h < 10) h = '0' + h
-        if (m < 10) m = '0' + m
-        if (s < 10) s = '0' + s
-        var time = h + ":" + m + ":" + s;
-        var dateTime = time;
-        if (msg['flag_image'] === "false"){
-          $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1">' + msg['server_msg'] + '</p></div><div class="col-sm-6"><p class="float-end box2"></div></div>')
-        }
-        else{
-          var tmp = '<a target="_blank" href="' + msg['server_msg'] + '"><img alt="lol" src="' + msg['server_msg'] + '"width=350"></a>'
-          $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1">' + tmp + '</p></div><div class="col-sm-6"><p class="float-end box2"></div></div>')
-          console.log(msg['flag_image'])
-        }
-        $('#single-messages').append('<div class="row"><div class="col-sm-6"><p class="float-start box1 dateTime">' + dateTime + '</p></div><div class="col-sm-6"><p class="float-end box2"></div></div>')
-        $("#single-messages").scrollTop($("#single-messages").height());
-        console.log(msg['client_msg'] + " " + msg['server_msg'])
-      });
-    });
-   
-  </script>
-
      <div class="container min-100">
         <div class="row">
-            <div class="col">
+          
+          <div id="loginForm">
+              <div id='loginTitle'>Tham gia nhóm chat trên server nào</div>
+              </br></br>
+              <input id = "registerBtn" type="button" value="Register" style="width: 100px; float: right;">
+              <input id = "textBtn" type="text" placeholder="Enter a nickname" style="width: 300px; float: right;  margin-right: 20px;padding-left: 5px;">            
+          </div>
+
+          <div>
+            </br></br>
+            <span id='username'> </span><span id = "sayhi" style="width: 100px; float: right;">Xin chao</span> 
+            </br>
+            <input id="logoutBtn" type="button" value="Log out" style="width: 100px; float: right;">
+          </div>
+
+          <div class="col">
               <h1> <div class="box-title"> CHATTING WITH BOT </div></h1>   
               
               <div id="single-messages" class="box-single-chat">
                 <div class="row">
                   <div class="col-sm-6">
                     <p class="float-start box1">
-                      xin chào, đây là hệ thống chat bot LOL.
+                      Xin chào, đây là hệ thống chat bot LOL. Bạn hãy đặt bất kì câu hỏi nào cho tôi nhé. 
                     </p>
                   </div>  
                   <div class="col-sm-6"><p class="float-end box2"></div> 
                 </div>   
-                        
-                <div class="row">
-                    <div class="col-sm-6"><p class="float-start box1">Ckúnq tae kủa hịn tẹi, 😔💔</p></div>  
-                    <div class="col-sm-6"><p class="float-end "></div> 
-                </div>   
-              
               </div> <!--div end box-single-chat -->
 
               <div class="send-msg">    
                 <div class="my-box" style="margin-right: -20px; padding-left: 10px;">              
-                  <input id="my-message-1" style="padding-right: 10px;" type="text" placeholder="Join the conversation" name="single_message" required>
+                  <input id="my-message-1" style="float: left" type="text" placeholder="Join the conversation" name="single_message" required>
                   <button id="send-btn-1" class="btn btn-success" type="button" >Send</button>
-                </div>
-                      
-            </div>
-             
-            </div> <!--div end col-->
-
-            <div class="col">
-              <h1> <div class="box-title"> MULTIPLE CHATTING </div></h1>   
-              
-              <div id = "multi-messages" class="box-single-chat">
-                <div class="row">
-                  <p class="box3">Cả nhà thấy hay nhớ like , share và subscribe giúp ProPTIT sớm đạt được nút vàng nhé</p>
-                </div>   
+                </div>        
               </div>
-
-              <div class="send-msg">    
-                  <div class="my-box" style="margin-right: -20px; padding-left: 10px;">              
-                    <input id="my-message-2" style="padding-right: 10px;" type="text" placeholder="Join the conversation" name="multiple_message" required>
-                    <button id="send-btn-2" class="btn btn-success" type="button" >Send</button>
-                  </div>
-                        
-              </div>
-              
+      
+          </div> <!--div end col-->
+            
+          <div class="col" id="multiBox">
+            <h1> <div class="box-title"> MULTIPLE CHATTING </div></h1>   
+            
+            <div id = "multi-messages" class="box-single-chat">
+                 
             </div>
-        </div>
-        <div class="space"></br>
+
+            <div class="send-msg">    
+                <div class="my-box" style="margin-right: -20px; padding-left: 10px;">              
+                  <input id="my-message-2" style="padding-right: 10px;" type="text" placeholder="Join the conversation" name="multiple_message" required>
+                  <button id="send-btn-2" class="btn btn-success" type="button" >Send</button>
+                </div>       
+            </div>    
+          </div> <!--div end col-->
+
         
-        <footer style="padding-left: 90%;">
-          <p>Author: hoaf13</p>
-          <p><a href="https://www.facebook.com/hoaf13.6/">My Contact</a></p>
-        </footer>
-     </div>
+        </div> <!--div end row -->
 
+        <div class="space"></br>
+
+        <footer style="padding-left: 90%;">
+          <a href="https://www.facebook.com/hoaf13.6/" class="author-footer">Author: hoaf13</a>
+        </footer>
      
+    </div> <!--div end container-->
+
+    
   </body>
 </html>

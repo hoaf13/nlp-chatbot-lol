@@ -23,9 +23,9 @@ SECRET_KEY = "secret"
 # Auto reload templates
 TEMPLATES_AUTO_RELOAD = True  
 
-
 SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 JSON_AS_ASCII = False
+

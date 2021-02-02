@@ -16,6 +16,7 @@ html, body {
   background-repeat: repeat-y;
   background-size: contain;
   height: 1000px;
+  position: relative;
 }
 
 .box-single-chat {
@@ -64,7 +65,6 @@ html, body {
 }
 
 .box-title{
-  margin-top: 100px;
   display: flex;
   justify-content: center;
   text-shadow: 0 0 3px #4301fa, 0 3px 5px #850000;
@@ -95,4 +95,40 @@ textarea:focus, input:focus{
 
 .support-socket{
   width: 400px;
+}
+
+.author-footer{
+  color: #ffffff;
+  font-weight: bolder;
+  position: absolute;
+}
+
+#loginTitle{
+  float: right;
+  font-size: 25px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 2px 2px #ff0000;
+}
+
+#statusBox{
+  float: right;
+  width: 300px;
+  height: 500px;
+  background-color: #ffffff;
+  /*margin-top: -2000px;*/
+  margin-left: -1000px;
+}
+
+#username{
+  color: #ff0000;
+  /* float: right; */
+}
+
+#joinRoom{
+  color: #4301fa;
+}
+
+#leftRoom{
+  color: #850000;
 }
