@@ -68,6 +68,23 @@ app.add_url_rule('/champions/<int:id>', view_func=champion_view, methods=['GET',
 
 model = load_model()
 
+
+
+from celery_task import make_celery
+
+
+app.config.update(
+    CELERY_BROKER_URL='redis://localhost:6379',
+    CELERY_RESULT_BACKEND='redis://localhost:6379'
+)
+celery = make_celery(app)
+
+@celery.task(name='flask_celery')
+def getMyDictPostResponse(conversation_id, message_question, entities, prob, intent):
+    ans = getDictPostResponse(conversation_id, message_question, entities, prob, intent)
+    print(ans)
+    return ans
+
 class ConversationView(MethodView):
     
     def get(self):
@@ -98,7 +115,16 @@ class ConversationView(MethodView):
             entities['skill'] = str(skill)
         print("entities: {}".format(entities))
         print("prob: {}".format(prob))
-        dict_response = getDictPostResponse(conversation_id, message_question, entities, prob, intent)
+
+        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4")
+        dict_response = getMyDictPostResponse.delay(conversation_id, message_question, entities, float(prob), intent).collect()
+        print(type(dict_response))
+        tmp = list(dict_response)
+        print(tmp)
+        dict_response = tmp[0][1]
+        print(dict_response)
+        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4")
+
         conversation = Conversation(conversation_id=conversation_id, 
         message_question=str(message_question), 
         message_answer=str(dict_response['message_answer']),

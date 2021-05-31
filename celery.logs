@@ -1,0 +1,118 @@
+[2021-06-01 06:35:00,393: WARNING/MainProcess] /home/smartcall/anaconda3/envs/hoanv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2021-06-01 06:35:00,393: WARNING/MainProcess] Please run `celery upgrade settings path/to/settings.py` to avoid these warnings and to allow a smoother upgrade to Celery 6.0.
+[2021-06-01 06:35:06,915: INFO/MainProcess] Connected to redis://localhost:6379//
+[2021-06-01 06:35:06,930: INFO/MainProcess] mingle: searching for neighbors
+[2021-06-01 06:35:07,966: INFO/MainProcess] mingle: all alone
+[2021-06-01 06:35:08,002: INFO/MainProcess] celery@ubuntu ready.
+[2021-06-01 06:38:02,430: WARNING/MainProcess] /home/smartcall/anaconda3/envs/hoanv/lib/python3.8/site-packages/celery/app/utils.py:204: CDeprecationWarning: 
+    The 'CELERY_RESULT_BACKEND' setting is deprecated and scheduled for removal in
+    version 6.0.0. Use the result_backend instead
+
+  deprecated.warn(description=f'The {setting!r} setting',
+
+[2021-06-01 06:38:02,430: WARNING/MainProcess] Please run `celery upgrade settings path/to/settings.py` to avoid these warnings and to allow a smoother upgrade to Celery 6.0.
+[2021-06-01 06:38:09,140: INFO/MainProcess] Connected to redis://localhost:6379//
+[2021-06-01 06:38:09,152: INFO/MainProcess] mingle: searching for neighbors
+[2021-06-01 06:38:10,176: INFO/MainProcess] mingle: all alone
+[2021-06-01 06:38:10,190: INFO/MainProcess] celery@ubuntu ready.
+[2021-06-01 06:40:26,831: INFO/MainProcess] Task flask_celery[f694263a-6dc4-4a14-9d75-f45a6d9eb3d3] received
+[2021-06-01 06:40:26,835: WARNING/ForkPoolWorker-29] 482
+[2021-06-01 06:40:26,836: WARNING/ForkPoolWorker-29] t
+[2021-06-01 06:40:26,836: WARNING/ForkPoolWorker-29] {}
+[2021-06-01 06:40:26,836: WARNING/ForkPoolWorker-29] 0.38609847
+[2021-06-01 06:40:26,836: WARNING/ForkPoolWorker-29] introduce
+[2021-06-01 06:40:26,836: WARNING/ForkPoolWorker-29] <class 'int'>
+[2021-06-01 06:40:26,836: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:40:26,836: WARNING/ForkPoolWorker-29] <class 'dict'>
+[2021-06-01 06:40:26,836: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:40:26,837: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:40:26,837: WARNING/ForkPoolWorker-29] eXCEPTION
+[2021-06-01 06:40:26,837: WARNING/ForkPoolWorker-29] '>' not supported between instances of 'str' and 'float'
+[2021-06-01 06:40:26,837: WARNING/ForkPoolWorker-29] None
+[2021-06-01 06:40:26,841: INFO/ForkPoolWorker-29] Task flask_celery[f694263a-6dc4-4a14-9d75-f45a6d9eb3d3] succeeded in 0.006786674028262496s: None
+[2021-06-01 06:41:05,248: INFO/MainProcess] Task flask_celery[8731123c-ae6c-43da-b4b7-f134f14c7aea] received
+[2021-06-01 06:41:05,250: WARNING/ForkPoolWorker-29] 481
+[2021-06-01 06:41:05,250: WARNING/ForkPoolWorker-29] cách chơi zed
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] {'champion': 'Zed'}
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] 0.99727124
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] how_to_play
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] <class 'int'>
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] <class 'dict'>
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] eXCEPTION
+[2021-06-01 06:41:05,251: WARNING/ForkPoolWorker-29] '>' not supported between instances of 'str' and 'float'
+[2021-06-01 06:41:05,252: WARNING/ForkPoolWorker-29] None
+[2021-06-01 06:41:05,253: INFO/ForkPoolWorker-29] Task flask_celery[8731123c-ae6c-43da-b4b7-f134f14c7aea] succeeded in 0.0027538579888641834s: None
+[2021-06-01 06:42:10,417: INFO/MainProcess] Task flask_celery[ebacd189-850e-4a65-b09f-c11adb3446d1] received
+[2021-06-01 06:42:10,419: WARNING/ForkPoolWorker-29] 482
+[2021-06-01 06:42:10,419: WARNING/ForkPoolWorker-29] cách chơi zed
+[2021-06-01 06:42:10,419: WARNING/ForkPoolWorker-29] {'champion': 'Zed'}
+[2021-06-01 06:42:10,420: WARNING/ForkPoolWorker-29] 0.99727124
+[2021-06-01 06:42:10,420: WARNING/ForkPoolWorker-29] how_to_play
+[2021-06-01 06:42:10,420: WARNING/ForkPoolWorker-29] <class 'int'>
+[2021-06-01 06:42:10,420: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:42:10,420: WARNING/ForkPoolWorker-29] <class 'dict'>
+[2021-06-01 06:42:10,421: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:42:10,421: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:42:10,421: WARNING/ForkPoolWorker-29] eXCEPTION
+[2021-06-01 06:42:10,421: WARNING/ForkPoolWorker-29] '>' not supported between instances of 'str' and 'float'
+[2021-06-01 06:42:10,421: WARNING/ForkPoolWorker-29] None
+[2021-06-01 06:42:10,423: INFO/ForkPoolWorker-29] Task flask_celery[ebacd189-850e-4a65-b09f-c11adb3446d1] succeeded in 0.004561248002573848s: None
+[2021-06-01 06:44:50,187: INFO/MainProcess] Task flask_celery[c752b4bc-cf84-46b4-940a-9072bd9b53c6] received
+[2021-06-01 06:44:50,188: WARNING/ForkPoolWorker-29] 483
+[2021-06-01 06:44:50,188: WARNING/ForkPoolWorker-29] E của Zed chơi như nào
+[2021-06-01 06:44:50,188: WARNING/ForkPoolWorker-29] {'champion': 'Zed', 'skill': 'E'}
+[2021-06-01 06:44:50,188: WARNING/ForkPoolWorker-29] 0.99861395
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] how_to_use_skill
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] <class 'int'>
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] <class 'dict'>
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] eXCEPTION
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] '>' not supported between instances of 'str' and 'float'
+[2021-06-01 06:44:50,189: WARNING/ForkPoolWorker-29] None
+[2021-06-01 06:44:50,190: INFO/ForkPoolWorker-29] Task flask_celery[c752b4bc-cf84-46b4-940a-9072bd9b53c6] succeeded in 0.0016780118457973003s: None
+[2021-06-01 06:46:00,245: INFO/MainProcess] Task flask_celery[1be37ea6-7c7a-4dab-9531-367c69753c78] received
+[2021-06-01 06:46:00,249: WARNING/ForkPoolWorker-29] 482
+[2021-06-01 06:46:00,249: WARNING/ForkPoolWorker-29] cách chơi zed
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] {'champion': 'Zed'}
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] 0.9972712397575378
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] how_to_play
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] <class 'int'>
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] <class 'dict'>
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] <class 'float'>
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:46:00,250: WARNING/ForkPoolWorker-29] IN THRESHOLD > 0.8
+[2021-06-01 06:46:00,251: WARNING/ForkPoolWorker-29] aloooo 1
+[2021-06-01 06:46:00,265: WARNING/ForkPoolWorker-29] aloooo 2
+[2021-06-01 06:46:00,265: WARNING/ForkPoolWorker-29] message_answer: Khi đi đường giữa, hãy cố gắng cắm mặt quanh khu vực đường giữa càng nhiều càng tốt.Cố gắng lên Level nhanh nhất có thể, để có thể cấu máu gây sát thương nhiều nhất có thể.Cuối game, 1 bộ Combo có thể OneShot đối thủ nên các bạn hãy dành bộ combo đó cho xạ thủ đối phương nhé.
+[2021-06-01 06:46:00,265: WARNING/ForkPoolWorker-29] aloooo 3
+[2021-06-01 06:46:00,266: WARNING/ForkPoolWorker-29] {'intent': 'how_to_play', 'action': 'action_how_to_play', 'message_answer': 'Khi đi đường giữa, hãy cố gắng cắm mặt quanh khu vực đường giữa càng nhiều càng tốt.Cố gắng lên Level nhanh nhất có thể, để có thể cấu máu gây sát thương nhiều nhất có thể.Cuối game, 1 bộ Combo có thể OneShot đối thủ nên các bạn hãy dành bộ combo đó cho xạ thủ đối phương nhé.'}
+[2021-06-01 06:46:00,267: INFO/ForkPoolWorker-29] Task flask_celery[1be37ea6-7c7a-4dab-9531-367c69753c78] succeeded in 0.01783148804679513s: {'intent': 'how_to_play', 'action': 'action_how_to_play', 'message_answer': 'Khi đi đường giữa, hãy cố gắng cắm mặt quanh khu vực đường giữa càng nhiều càng tốt.Cố gắng lên Level nhanh nhất có thể, để có thể cấu máu gây sát thương nhiều nhất có thể.Cuối game, 1 bộ Combo có thể OneShot đối thủ nên các bạn hãy dành bộ combo đó cho xạ thủ đối phương nhé.'}
+[2021-06-01 06:46:16,275: INFO/MainProcess] Task flask_celery[48874c91-1887-4435-9c09-b1414af5c772] received
+[2021-06-01 06:46:16,277: WARNING/ForkPoolWorker-29] 482
+[2021-06-01 06:46:16,277: WARNING/ForkPoolWorker-29] cách chơi malphite
+[2021-06-01 06:46:16,277: WARNING/ForkPoolWorker-29] {'champion': 'Malphite'}
+[2021-06-01 06:46:16,277: WARNING/ForkPoolWorker-29] 0.9972712397575378
+[2021-06-01 06:46:16,277: WARNING/ForkPoolWorker-29] how_to_play
+[2021-06-01 06:46:16,277: WARNING/ForkPoolWorker-29] <class 'int'>
+[2021-06-01 06:46:16,277: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:46:16,277: WARNING/ForkPoolWorker-29] <class 'dict'>
+[2021-06-01 06:46:16,278: WARNING/ForkPoolWorker-29] <class 'float'>
+[2021-06-01 06:46:16,278: WARNING/ForkPoolWorker-29] <class 'str'>
+[2021-06-01 06:46:16,278: WARNING/ForkPoolWorker-29] IN THRESHOLD > 0.8
+[2021-06-01 06:46:16,278: WARNING/ForkPoolWorker-29] aloooo 1
+[2021-06-01 06:46:16,281: WARNING/ForkPoolWorker-29] aloooo 2
+[2021-06-01 06:46:16,281: WARNING/ForkPoolWorker-29] message_answer: Đừng bao giờ lao vào một mình, hãy chờ thời cơ khi đồng đội có thể lao vào ngay sau khi bạn sử dụng chiêu cuối.Hãy đánh giá tình huống và tự hỏi bản thân đối phương có gì để có thể né được chiêu cuối của bạn, chẳng hạn như Đồng Hồ Cát, Tốc Biến, hay là một con Tahm Kench?Bình tĩnh là chìa khóa quan trọng nhất dẫn đến thành công với Malphite. Bạn không nhất thiết phải là người mở giao tranh đầu tiên. Tất cả những gì quan trọng đó chính là thời điểm sử dụng Không Thể Cản Phá, nên hãy chờ đợi sơ hở của đối phương.Trước khi lao vào, hãy nghĩ xem bạn muốn dùng chiêu cuối này trúng ai. Không phải lúc nào Không Thể Cản Phá Trúng nhiều người cũng tốt, khi bạn sử dụng kĩ năng này trúng xạ thủ “7/0” của đối phương chắc chắn sẽ tốt hơn lao đầu vào 3 vị tướng đỡ đòn. Theo thứ tự ưu tiên, thì đứng đầu sẽ là Xạ Thủ, sau đó đến các vị trí carry khác, những hỗ trợ đa dụng, và cuối cùng là vị trí đỡ đòn.Nếu như bạn có Tốc Biến, đừng ngần ngại kết hợp nó với Không Thể Cản Phá. Giống như Annie kết hợp Tốc Biến + thả gấu vậy, điều này sẽ tạo ra rất nhiều bất ngờ cho đối thủ.
+[2021-06-01 06:46:16,281: WARNING/ForkPoolWorker-29] aloooo 3
+[2021-06-01 06:46:16,281: WARNING/ForkPoolWorker-29] {'intent': 'how_to_play', 'action': 'action_how_to_play', 'message_answer': 'Đừng bao giờ lao vào một mình, hãy chờ thời cơ khi đồng đội có thể lao vào ngay sau khi bạn sử dụng chiêu cuối.Hãy đánh giá tình huống và tự hỏi bản thân đối phương có gì để có thể né được chiêu cuối của bạn, chẳng hạn như Đồng Hồ Cát, Tốc Biến, hay là một con Tahm Kench?Bình tĩnh là chìa khóa quan trọng nhất dẫn đến thành công với Malphite. Bạn không nhất thiết phải là người mở giao tranh đầu tiên. Tất cả những gì quan trọng đó chính là thời điểm sử dụng Không Thể Cản Phá, nên hãy chờ đợi sơ hở của đối phương.Trước khi lao vào, hãy nghĩ xem bạn muốn dùng chiêu cuối này trúng ai. Không phải lúc nào Không Thể Cản Phá Trúng nhiều người cũng tốt, khi bạn sử dụng kĩ năng này trúng xạ thủ “7/0” của đối phương chắc chắn sẽ tốt hơn lao đầu vào 3 vị tướng đỡ đòn. Theo thứ tự ưu tiên, thì đứng đầu sẽ là Xạ Thủ, sau đó đến các vị trí carry khác, những hỗ trợ đa dụng, và cuối cùng là vị trí đỡ đòn.Nếu như bạn có Tốc Biến, đừng ngần ngại kết hợp nó với Không Thể Cản Phá. Giống như Annie kết hợp Tốc Biến + thả gấu vậy, điều này sẽ tạo ra rất nhiều bất ngờ cho đối thủ.'}
+[2021-06-01 06:46:16,283: INFO/ForkPoolWorker-29] Task flask_celery[48874c91-1887-4435-9c09-b1414af5c772] succeeded in 0.0062027559615671635s: {'intent': 'how_to_play', 'action': 'action_how_to_play', 'message_answer': 'Đừng bao giờ lao vào một mình, hãy chờ thời cơ khi đồng đội có thể lao vào ngay sau khi bạn sử dụng chiêu cuối.Hãy đánh giá tình huống và tự hỏi bản thân đối phương có gì để có thể né được chiêu cuối của bạn, chẳng hạn như Đồng Hồ Cát, Tốc Biến, hay là một con Tahm Kench?Bình tĩnh là chìa khóa quan trọng nhất dẫn đến thành công với Malphite. Bạn không nhất thiết phải là người mở giao tranh đầu tiên. Tất cả những gì quan trọng đó chính là thời điểm sử dụng Không Thể Cản Phá, nên hãy chờ đợi sơ hở của đối phương.Trước khi lao vào, hãy nghĩ xem bạn muốn dùng chiêu cuối này trúng ai. Không phải lúc nào Không Thể Cản Phá Trúng nhiều người cũng tốt, khi bạn sử dụng kĩ năng này trúng xạ thủ “7/0” của đối phương chắc chắn sẽ tốt hơn lao đầu vào 3 vị tướng đỡ đòn. Theo thứ tự ưu tiên, thì đứng đầu sẽ là Xạ Thủ, sau đó đến các vị trí carry khác, những hỗ trợ đa dụng, và cuối cùng là vị trí đỡ đòn.Nếu như bạn có Tốc Biến, đừng ngần ngại kết hợp...', ...

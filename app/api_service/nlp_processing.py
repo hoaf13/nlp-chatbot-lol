@@ -1,10 +1,12 @@
 import csv
 import json
 import numpy as np
+import json
 import sklearn
+import re
+import random
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
-import numpy
 from keras.datasets import imdb
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
@@ -14,20 +16,12 @@ from keras.layers.convolutional import MaxPooling1D
 from keras.layers.embeddings import Embedding
 from keras.preprocessing import sequence
 from keras.layers import LSTM, GRU,Bidirectional, Flatten, Dense
-from keras_self_attention import SeqSelfAttention
-import csv, re
-import json
-import numpy as np
-from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.feature_extraction.text import CountVectorizer
 from keras.utils import np_utils
 from sklearn.model_selection import train_test_split
 from keras import optimizers
-import numpy as np
 from keras.preprocessing.text import  Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.callbacks import  EarlyStopping, ModelCheckpoint
-from keras_self_attention import SeqSelfAttention, SeqWeightedAttention
 from app.models import Champion, Conversation
 from app import db 
 from flask import request
@@ -42,7 +36,7 @@ dict_intent={
     'combo':6,
     'combine_with':7,
     'how_to_use_skill':8,
-    'introduce':9
+    'introduce':9,
 }
 
 CHAMPIONS = []
@@ -60,6 +54,17 @@ reg = reg[:-1]
 f.close()
 
 skills = ['Q', 'W', 'E' , 'R', 'q','w','e','r']
+
+def get_champion(msg):
+    ans = ""
+    f = open('app/api_service/my_upload/another_champion_name.json')
+    data = json.load(f)
+    for champion in data:
+        another_names = data[champion]
+        if any(name in msg for name in another_names):
+            ans = champion
+    return ans
+        
 def get_entity(content): 
     
     hero = re.search(reg.lower(), content.lower())
@@ -78,18 +83,8 @@ def get_entity(content):
             skill = i
             break
 
-    if hero != "":
-        for c in CHAMPIONS:
-            if c.lower() == hero.lower():
-                hero = c 
-                break
-    if 'jarvan' in content.lower():
-        hero = 'Jarvan IV'
-    if 'mundo' in content.lower():
-        hero = 'Dr. Mundo'
-    if 'nunu' in content.lower():
-        hero = 'Nunu & Willump'
-
+    hero = get_champion(content.lower())
+        
     return hero, skill.upper()
 
 def load_model():
@@ -102,11 +97,15 @@ def load_model():
     model.load_weights('app/api_service/my_upload/hoaf13-nlp.h5')
     # model.summary()
     return model
+
+
 def process_content(reg, content): 
     x = re.search(reg, content)
     if x != None:
         content = content.replace(x.group(), "{hero}")
     return content
+
+
 def process_data(model, content):
     f = open('app/api_service/my_upload/bow.txt', 'r')
     dictionary = ''
@@ -130,7 +129,7 @@ def process_data(model, content):
 def get_raw_answer(intent, champion):
     message_answer = None
     if intent == 'build_item': message_answer = champion.build_item
-    if intent == 'support_socket': message_answer = request.url_root + "static/support_socket/" + champion.support_socket 
+    if intent == 'support_socket': message_answer = request.url_root + "static/support_socket/" + str(champion.support_socket).replace("'","")
     if intent == 'counter': message_answer = champion.counter
     if intent == 'be_countered': message_answer = champion.be_countered
     if intent == 'skill_up': message_answer = champion.skill_up
@@ -158,7 +157,7 @@ def normalize_message(intent, message_answer, entities, champion,conversation_id
         items = ', '.join(list_items)
         ans = "{} lên đồ như sau: {}".format(champion.name, items)
     if intent == 'support_socket': # ImageField 
-        ans = request.url_root + "static/support_socket/" + champion.support_socket
+        ans = request.url_root + "static/support_socket/" + champion.support_socket.replace("'","").replace(" ","_")
         # ans = open('app/api_service/my_upload/support_socket/',r)
     if intent == 'counter': # ['Darius', 'Yasuo', 'Zed', 'Master Yi', 'Katarina', 'Hecarim', 'Akali', 'Renekton', 'LeBlanc', 'Jinx', 'Kassadin', 'Jax']        ans = MEDIA_URL + ans.url
         message_answer = message_answer.replace('"','')
@@ -302,24 +301,34 @@ def tolower_message(message_question):
     return ans 
 
 def getDictPostResponse(conversation_id, message_question, entities, prob, intent):
-    print(entities, intent, prob)
+    print(conversation_id, message_question, entities, prob, intent)
+    print(type(conversation_id), type(message_question), type(entities), type(prob), type(intent))
+    prob = float(prob)
     try:
-        if "chào" in message_question.lower() or "hello" in message_question.lower() or "chao" in message_question.lower():
+        hello_words = ["hello", "chào", "alo"] 
+        if any(word in message_question.lower() for word in hello_words):
             intent = "say_hi"
             action = "action_say_hi"
-            message_answer = "chào bạn, đây là chatbot lol."
+            
+            message_answers = ["chào bạn, đây là chatbot lol.","hello","chào bạn, mình có thể hỗ trợ bạn về cách build đồ, lên đồ, cách lên bảng hỗ trợ, hướng cộng kỹ năng, ... hoặc các câu hỏi liên quan đến cách combo, cách lên skill của tướng, không biết bạn cần hỗ trợ gì vậy ạ"]
+            message_answer = random.choices(message_answers,k=1)[0]
             res = to_json(intent, action, message_answer)
             return res
 
         if prob > 0.80:
+            print("IN THRESHOLD > 0.8")
             if ('champion' in entities and intent != 'how_to_use_skill') or ('champion' in entities and 'skill' in entities and intent == 'how_to_use_skill'):
+                print("aloooo 1")
                 champion = Champion.query.filter_by(name=entities['champion']).first()
+                print("aloooo 2")
                 message_answer = get_raw_answer(intent, champion)
                 print("message_answer: {}".format(message_answer))
+                print("aloooo 3")
                 message_answer,action = normalize_message(intent,message_answer,entities,champion,conversation_id)
                 conversation = Conversation(conversation_id=conversation_id,message_question=message_question,
                                 message_answer=message_answer,intent=intent,entities=entities, action="action_"+intent)
                 res = to_json(intent, action, message_answer)
+
                 return res 
         if  "còn" in message_question.lower() or "thì sao" in message_question.lower():
             intent = 'what_about'    
@@ -368,6 +377,7 @@ def getDictPostResponse(conversation_id, message_question, entities, prob, inten
                 return res
 
             if prob < 0.45:     
+                print("UNDER THE THRESHOLD !!")
                 action = 'action_ask_intent'
                 message_answer = 'Tôi không hiểu ý của bạn, mời bạn nhập thêm.'
                 conversation = Conversation(conversation_id=conversation_id,message_question=message_question,
@@ -530,8 +540,9 @@ def getDictPostResponse(conversation_id, message_question, entities, prob, inten
                     return res
 
     except Exception as e :
-        # intent = "ask_intent"
-        message_answer = 'Bộ dữ liệu của tôi vẫn đang cập nhật thêm về câu hỏi này.'
-        action = "action_ask_update"
-        res = to_json(intent,action, message_answer)
-        return res
+        print("eXCEPTION ", e)
+    #     # intent = "ask_intent"
+    #     message_answer = 'Bộ ấdsdsad dữ liệu của tôi vẫn đang cập nhật thêm về câu hỏi này.'
+    #     action = "action_ask_update"
+    #     res = to_json(intent,action, message_answer)
+    #     return res
